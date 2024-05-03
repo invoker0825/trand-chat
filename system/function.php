@@ -108,7 +108,7 @@ function boomAddonsTemplate($getpage, $boom = '') {
     $structure = '';
     ob_start();
     require($page);
-    $structure = ob_get_clean();
+    $structure = ob_get_clean(); 
     return $structure;
 }
 function calHour($h){
