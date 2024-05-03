@@ -1,0 +1,74 @@
+﻿.live_label{font-size: 14px;text-align: center; font-weight:bold;}
+.live_center_btn{width: 55%;margin-left: auto;margin-right: auto;}
+.livehide { display:none !important; }
+.liveout { left:-10000px !important; }
+.live_stream_img {
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+.large_modal_out_cust_live{
+    display: none;
+    position: fixed;
+    left: 26%;
+    top: 110px;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    cursor: pointer;
+	z-index:11;
+}
+.hideLive{display:none;}
+.modal_top_live { 	
+	background: #5c5c5c;
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    border-radius: 8px;
+}
+@media screen and (max-width:768px){
+	.large_modal_out_cust_live{
+		left: 8%;
+	}
+}
+.yildiz_host_live_stream{
+	height: 300px ;
+	width: 100%;
+	background: #1d2c33;
+}
+
+@-webkit-keyframes shadow-drop-2-center {
+  0% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+  100% {
+    -webkit-transform: translateZ(50px);
+            transform: translateZ(50px);
+    -webkit-box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+  }
+}
+@keyframes shadow-drop-2-center {
+  0% {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgb(0 0 0 / 69%);
+    border-radius: 30px;
+  }
+  100% {
+    -webkit-transform: translateZ(50px);
+            transform: translateZ(50px);
+    -webkit-box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+  }
+}
+.live_strem {
+	-webkit-animation: shadow-drop-2-center 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate-reverse both;
+	animation: shadow-drop-2-center 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate-reverse both;
+}

@@ -1,0 +1,10 @@
+
+.w_box {
+    border-radius: 10px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+.w_tname {
+    font-weight: bold;
+    cursor: pointer;
+}

@@ -1,0 +1,40 @@
+﻿.live_label{font-size: 14px;text-align: center; font-weight:bold;}
+.live_center_btn{width: 55%;margin-left: auto;margin-right: auto;}
+.livehide { display:none !important; }
+.liveout { left:-10000px !important; }
+.live_stream_img {
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+.large_modal_out_cust_live{
+    display: none;
+    position: fixed;
+    left: 26%;
+    top: 70px;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    cursor: pointer;
+	z-index:11;
+}
+.hideLive{display:none;}
+.modal_top_live { 	
+	background: #f7f7f7;
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    border-radius: 8px;
+}
+@media screen and (max-width:768px){
+	.large_modal_out_cust_live{
+		left: 8%;
+	}
+}
+.yildiz_host_live_stream{
+	height: 300px ;
+	width: 100%;
+	background: #1d2c33;
+}
