@@ -1,0 +1,1 @@
+<div data="<?php echo $boom['n']; ?>" class="nick_img_card color_switch live_nick_choice"><img class="lazy nick_img" data-src="addons/<?php echo ADDON; ?>/files/glitter/<?php echo $boom['img']; ?>" src="<?php echo imgLoader(); ?>"/></div>

@@ -1,18 +1,19 @@
 <?php
 $load_addons = 'quizbot';
-require(__DIR__ . '/../../../../system/config_cron.php');
+require_once(__DIR__ . '/../../../../system/config_cron.php');
+$quiz = addonsData('quizbot');
 
 $time = time();
 $mode = 1;
 $zone = 'quiz';
 
-if($addons['custom2'] == 0){
+if($quiz['custom2'] == 0){
 	die();
 }
 
 $file = quizFile();
 
-if($file == $addons['custom5']){
+if($file == $quiz['custom5']){
 	$mode = 2;
 	$zone = 'scramble';
 }
@@ -23,60 +24,60 @@ $random = rand(1,$line_count - 1);
 $read = $lines[$random];
 
 if($mode == 2){
-	$question = escape(shuffleIt(trim($read)));
-	$answer = escape($read);
+	$dbquestion = escape(shuffleIt(trim($read)));
+	$dbanswer = escape($read);
 }
 else {
-	$qline = explode('*',$read);
-	$question = escape(trim($qline[0]));
-	$answer = escape(trim($qline[1]));
+	$question_line = explode('*',$read);
+	$dbquestion = escape(trim($question_line[0]));
+	$dbanswer = escape(trim($question_line[1]));
 }
-if($question == '' || $answer == ''){
+if($dbquestion == '' || $dbanswer == ''){
 	die();
-}
-	
-$quiz = updateQuiz($question, $answer);
-if(empty($quiz)){
-	die();
-}
-
-if(!playerOn()){
-	die();
-}
-if($mode == 2){
-	postScramble();
 }
 else {
-	postQuestion();
-}
-
-mysqli_close($mysqli);
-
-$pass = 0;
-while($pass < 11){
-	usleep(5250000);
-	$mysqli = @new mysqli(BOOM_DHOST, BOOM_DUSER, BOOM_DPASS, BOOM_DNAME);
-	$check_answer = $mysqli->query("SELECT * FROM boom_chat WHERE post_message COLLATE UTF8_GENERAL_CI LIKE '%{$quiz['answer']}%' AND post_date > '$time' ORDER BY post_date ASC LIMIT 1");
 	
-	if($check_answer->num_rows > 0){
-		$winner_details = $check_answer->fetch_array(MYSQLI_BOTH);
-		$user = userDetails($winner_details['user_id']);
-		postWinner($user);
+	$mysqli->query("UPDATE boom_addons SET custom6 = '$dbquestion', custom7 = '$dbanswer' WHERE addons = '$load_addons'");
+	$quiz = addonsData('quizbot');
+	
+	if(!playerOn($quiz['custom1'])){
 		die();
 	}
+	if($mode == 2){
+		postScramble();
+	}
 	else {
-		if($pass == 5){
-			postHint();
-			$pass++;
-			mysqli_close($mysqli);
-		}
-		else if($pass == 10){
-			postFail();
+		postQuestion();
+	}
+	
+	mysqli_close($mysqli);
+	
+	$pass = 0;
+	while($pass < 11){
+		usleep(5250000);
+		$mysqli = @new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+		$check_answer = $mysqli->query("SELECT * FROM boom_chat WHERE post_message COLLATE UTF8_GENERAL_CI LIKE '%{$quiz['custom7']}%' AND post_date > '$time' ORDER BY post_date ASC LIMIT 1");
+		
+		if($check_answer->num_rows > 0){
+			$winner_details = $check_answer->fetch_array(MYSQLI_BOTH);
+			$winner = userDetails($winner_details['user_id']);
+			postWinner();
 			die();
 		}
 		else {
-			$pass++;
-			mysqli_close($mysqli);
+			if($pass == 5){
+				postHint();
+				$pass++;
+				mysqli_close($mysqli);
+			}
+			else if($pass == 10){
+				postFail();
+				die();
+			}
+			else {
+				$pass++;
+				mysqli_close($mysqli);
+			}
 		}
 	}
 }

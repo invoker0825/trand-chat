@@ -1,21 +1,24 @@
 <?php
 $load_addons = 'quizbot';
-require('../../../system/config_addons.php');
+require_once('../../../system/config_addons.php');
 
 $leader_list = '';
 
 function quizLeader($lead, $rank){
 	global $lang;
 	$add_me = '';
-	if(mySelf($lead['user_id'])){
-		$add_me = 'cselected';
+	if(!notMe($lead['user_id'])){
+		$add_me = 'noview';
 	}
-	return '<div class="puser_item quiz_user blist puser_thin ' . $add_me . '">
-				<div class="get_info puser_avatar" data="' . $lead['user_id'] . '">
-					<img src="' . myAvatar($lead['user_tumb']) . '"/>
+	return '<div class="list_element list_item drop_control user_lm_box ' . $add_me . '">
+				<div class="ranking_lm">
+					' . $rank . '
 				</div>
-				<div class="puser_name">
-					<p class="username ' . myColor($lead) . '">' . $lead["user_name"] . '</p>
+				<div class="get_info user_lm_avatar" data="' . $lead['user_id'] . '">
+					<img class="avatar_userlist" src="' . myavatar($lead['user_tumb']) . '"/>
+				</div>
+				<div class="user_lm_data username ' . $lead['user_color'] . '">
+					' . $lead["user_name"] . '
 				</div>
 				<div class="score_lm">
 					' . $lead['quiz_score'] . '
@@ -32,17 +35,11 @@ if($get_leader->num_rows > 0){
 	}
 }
 else {
-	$leader_list .= emptyZone($lang['no_data']);
+	$leader_list .= '<div class="pad_box">' . emptyZone($lang['no_data']) . '</div>';
 }
-ob_start();
 ?>
-<div class="pad10">
+<div class="quiz_leaderbox">
 	<?php echo $leader_list; ?>
+	<div class="clear"></div>
 </div>
-<?php
-$res['content'] = ob_get_clean();
-$res['title'] = $lang['quiz_leaderboard'];
-
-echo boomCode(1, $res);
-?>
 

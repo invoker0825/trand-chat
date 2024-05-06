@@ -9,6 +9,6 @@
 
 .quiz_text { border-radius:3px; padding:2px 10px; margin-top:5px; display:inline-block; }
 .quiz_text .my_notice { background:none !important; }
-.score_lm { display:table-cell; vertical-align:middle; width:70px; text-align:right; padding:0 5px; }
+.score_lm { display:table-cell; vertical-align:middle; width:100px; text-align:right; font-weight:bold; font-size:17px; padding:0 10px 0 5px; height:46px; }
 .ranking_lm { display:table-cell; vertical-align:middle; width:30px; text-align:center; font-weight:bold; }
 .quiz_leaderbox { width:100%; max-height:400px; overflow:hidden; overflow-y:auto; }

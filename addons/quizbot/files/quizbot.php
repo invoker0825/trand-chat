@@ -1,30 +1,18 @@
 <?php
 include(addonsLang('quizbot'));
 ?>
-<script data-cfasync="false">
+<script data-cfasync="false" type="text/javascript">
 
 quizLeaderboard = function(){
-	$.ajax({
-		url: "addons/quizbot/system/leaderboard.php",
-		type: "post",
-		cache: false,
-		dataType: 'json',
-		data: { 
-		},
-		beforeSend: function(){
-			prepareLeft(280);
-		},
-		success: function(response){
-			showLeftPanel(response.content, 280, response.title);
-		},
-		error: function(){
-			callError(system.error);
-		}
+	$.post('addons/quizbot/system/leaderboard.php', { 
+		token: utk,
+		}, function(response) {
+		showModal(response, 420);
 	});
 }
 
 $(document).ready(function(){
-	appLeftMenu('question-circle', '<?php echo $lang['quiz_leaderboard']; ?>', 'quizLeaderboard();');
+	appMoreMenu('question-circle', '<?php echo $lang['quiz_leaderboard']; ?>', 'quizLeaderboard();');
 	boomAddCss('addons/quizbot/files/quizbot.css');
 });
 </script>
