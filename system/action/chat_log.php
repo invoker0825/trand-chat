@@ -2,7 +2,6 @@
 require('../config_chat.php');
 
 if(isset($_POST['last'], $_POST['caction'], $_POST['fload'], $_POST['preload'], $_POST['priv'], $_POST['lastp'], $_POST['pcount'], $_POST['room'], $_POST['notify'], $_POST['curset'])){
-	
 	$last = escape($_POST['last'], true);
 	$fload = escape($_POST['fload'], true);
 	$caction = escape($_POST['caction'], true);
@@ -47,8 +46,9 @@ if(isset($_POST['last'], $_POST['caction'], $_POST['fload'], $_POST['preload'], 
 	if($fload == 0){
 		$d['rdata'] = createRoomData($room);
 	}
-	else if($caction != $room['rcaction']){
+	else {
 		$d['mlogs'] = getChatLogs($data['user_roomid'], $last);
+		$d['roomid'] = $data['user_roomid'];
 	}
 	
 	// delete log

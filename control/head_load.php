@@ -31,6 +31,7 @@ if(boomLogged() && !boomAllow($page['page_rank'])){
 <link rel="stylesheet" type="text/css" href="css/selectboxit.css<?php echo $bbfv; ?>" />
 <link rel="stylesheet" type="text/css" href="js/jqueryui/jquery-ui.min.css<?php echo $bbfv; ?>" />
 <link rel="stylesheet" type="text/css" href="css/main.css<?php echo $bbfv; ?>" />
+<link rel="stylesheet" type="text/css" href="css/style.css<?php echo $bbfv; ?>" />
 <?php if(!boomLogged()){ ?>
 <link rel="stylesheet" type="text/css" href="control/login/<?php echo getLoginPage(); ?>/login.css<?php echo $bbfv; ?>" />
 <?php } ?>
