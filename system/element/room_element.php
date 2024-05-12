@@ -19,8 +19,9 @@ if($data['user_id'] == $boom['room_creator']){
 		<img class="room_icon lazy" data-src="<?php echo myRoomIcon($boom['room_icon']); ?>" src="<?php echo imgLoader(); ?>"/>
 	</div>
 	<div class="bcell_mid room_content">
-		<div class="room_name roomtitle">
-			<?php echo $boom['room_name']; ?>
+		<div class="room_name roomtitle d-flex justify-content-between">
+			<span><?php echo $boom['room_name']; ?></span>
+			<span class="bg-danger border border-light rounded-circle">99+</span>
 		</div>
 		<div class="room_description roomdesc sub_text">
 			<?php echo $description; ?>

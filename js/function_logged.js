@@ -1344,6 +1344,8 @@ var waitJoin = 0;
 switchRoom = function(room, pass, rank){
 	if(insideChat()){
 		if(room == user_room){
+			// window.location.replace('<?php echo $settings["domain"]; ?>');
+			console.log('==========================')
 			return;
 		}
 	}

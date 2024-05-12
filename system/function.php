@@ -1726,7 +1726,7 @@ function getChatLogs($room, $last){
 	SELECT log.*, 
 	boom_users.user_name, boom_users.user_color, boom_users.user_font, boom_users.user_rank, boom_users.bccolor, boom_users.user_sex, boom_users.user_age, boom_users.user_tumb,
 	boom_users.user_cover, boom_users.country, boom_users.user_bot, boom_users.ashare, boom_users.sshare, boom_users.lshare
-	FROM ( SELECT * FROM `boom_chat` WHERE `post_roomid` = '$room' AND post_id > '$last' $add ORDER BY `post_id` DESC LIMIT $history) AS log
+	FROM ( SELECT * FROM `boom_chat` WHERE post_id > '$last' $add ORDER BY `post_id` DESC LIMIT $history) AS log
 	LEFT JOIN boom_users ON log.user_id = boom_users.user_id
 	ORDER BY `post_id` ASC
 	");

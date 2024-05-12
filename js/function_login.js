@@ -124,6 +124,7 @@ sendLogin = function(){
 				password: upass, 
 				username: uuser,
 				}, function(response) {
+					console.log('-=----------------', response)
 					if(response == 1){
 						callError(system.badLogin);
 						$('#user_password').val("");

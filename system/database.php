@@ -12,8 +12,8 @@ define('REDIS_TIMEOUT', 0.2);
 define('REDIS_PASS', '');
 
 // you can edit these lines to configure new setting for your chat
-define('BOOM_DHOST', 'localhost');
-define('BOOM_DUSER', 'root');
+define('BOOM_DHOST', '207.180.225.135');
+define('BOOM_DUSER', 'sammy');
 define('BOOM_DPASS', 'shivanon');
 define('BOOM_DNAME', 'trand_c');
 

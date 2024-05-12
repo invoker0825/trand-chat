@@ -60,12 +60,21 @@ privateLogExist = t => {
 		return true;
 	}
 }
-appendChatMessage = data => {
+appendChatMessage = (data, roomid) => {
 	var message = '';
 	for (var i = 0; i < data.length; i++){
 		lastPost = data[i].log_id;
 		if(!logExist(data[i]) && !ignored(data[i].user_id) && !boomAllow(data[i].log_rank)){
-			message += createChatLog(data[i]);
+			if (roomid == data[i].user_roomid) {
+				message += createChatLog(data[i]);
+			} else {
+				const roomUnreadElement = document.getElementById(`room-${data[i].user_roomid}-unread`);
+				if (roomUnreadElement) {
+					roomUnreadElement.innerHTML = parseInt(roomUnreadElement.innerHTML) + 1;
+					roomUnreadElement.classList.remove("d-none");
+				}
+			}
+			
 			chatSound(data[i]);
 			tabNotify();
 		}
@@ -177,6 +186,7 @@ clearChat = data => {
 		}
 	}
 }
+
 chatReload = function(){
 	var cPosted = Date.now();
 	logsControl();
@@ -238,7 +248,7 @@ chatReload = function(){
 						clearPlay();
 					}
 					else {
-						appendChatMessage(mLogs);
+						appendChatMessage(mLogs, response.roomid);
 					}
 					cAction = cact;
 					if('del' in response){
