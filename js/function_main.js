@@ -187,6 +187,7 @@ clearChat = data => {
 		}
 	}
 }
+
 chatReload = function(){
 	var cPosted = Date.now();
 	logsControl();
