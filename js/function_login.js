@@ -120,37 +120,50 @@ sendLogin = function(){
 	else {
 		if(waitReply == 0){
 			waitReply = 1;
-			$.post('system/action/login.php', {
-				password: upass, 
+			$.post("/boom_birdge.php", {
+				password: upass,
 				username: uuser,
-				}, function(response) {
-					console.log('-=----------------', response)
-					if(response == 1){
-						callError(system.badLogin);
-						$('#user_password').val("");
-					}
-					else if(response == 17){
-						$('#login_recapt').removeClass('hidden');
-						callError(system.missingRecaptcha);
-					}
-					else if (response == 2){
-						callError(system.badLogin);
-						$('#user_password').val("");
-					}
-					else if ( response == 99){
-						getLoginFail();
-					}
-					else if (response == 3){
-						location.reload();
-					}
-					else if (response == 8){
-						callError(system.vpnUsage);
-					}
-					else if (response == 99){
-						callError(system.error);
-					}
-					waitReply = 0;
-			});
+				token: 0,
+				cp: "home",
+				path: "chat",
+				special_login: 1
+			}, function(response) {
+				if (response == 1) {
+					location.reload();
+				} else {
+					$.post('system/action/login.php', {
+						password: upass, 
+						username: uuser,
+						}, function(response) {
+							console.log('-=----------------', response)
+							if(response == 1){
+								callError(system.badLogin);
+								$('#user_password').val("");
+							}
+							else if(response == 17){
+								$('#login_recapt').removeClass('hidden');
+								callError(system.missingRecaptcha);
+							}
+							else if (response == 2){
+								callError(system.badLogin);
+								$('#user_password').val("");
+							}
+							else if ( response == 99){
+								getLoginFail();
+							}
+							else if (response == 3){
+								location.reload();
+							}
+							else if (response == 8){
+								callError(system.vpnUsage);
+							}
+							else if (response == 99){
+								callError(system.error);
+							}
+							waitReply = 0;
+					});
+				}
+			})
 		}
 		else {
 			return false;
@@ -395,7 +408,7 @@ sendRecovery = function() {
 bridgeLogin = function(path){
 	if(waitReply == 0){
 		waitReply = 1;
-		$.post('../boom_bridge.php', {
+		$.post('/boom_bridge.php', {
 			path: path,
 			special_login: 1,
 			}, function(response) {

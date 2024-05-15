@@ -14,6 +14,7 @@ renderAvMenu = function(i){
 	var country = $(i).attr('data-country');
 	var gender = $(i).attr('data-gender');
 	var age = $(i).attr('data-age');
+	var blocked = $(i).attr('data-blocked');
 	var uinfo = userInfo(age, gender);
 	
 	$('#action_menu .avset').attr('data', uid);
@@ -47,9 +48,17 @@ renderAvMenu = function(i){
 	else {
 		$('#action_menu .avpriv').removeClass('fhide');
 	}
+	if (blocked == '1') {
+		$('#action_menu .avunblock').removeClass('hidden');
+	} else {
+		$('#action_menu .avunblock').addClass('hidden');
+	}
 	var avDrop = '';
 	avDrop += $('#action_menu .avheader')[0].outerHTML;
-	if(uid == user_id){
+	if (blocked == '1') {
+		avDrop += $('#action_menu .avother')[0].outerHTML;
+	}
+	else if(uid == user_id){
 		avDrop += $('#action_menu .avself')[0].outerHTML;
 	}
 	else if(ubot > 0){

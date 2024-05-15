@@ -29,6 +29,10 @@ if(isset($_POST['take_action'], $_POST['target'])){
 		echo unblockRoom($target);
 		die();
 	}
+	else if($action == 'creator_room_unblock'){
+		echo creatorUnblockRoom($_POST['room'], $target);
+		die();
+	}
 	else if($action == 'room_unmute'){
 		echo unmuteRoom($target);
 		die();

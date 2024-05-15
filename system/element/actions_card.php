@@ -78,4 +78,7 @@
 	<div data="" value="" data-av="" class="avset bmenu avitem get_actions avactions">
 		<i class="fa fa-check error"></i> <?php echo $lang['action']; ?>
 	</div>
+	<div data="" value="" data-av="" class="avset bmenu avitem avunblock">
+		<i class="fa fa-check theme_color"></i> <?php echo $lang['unblock']; ?>
+	</div>
 </div>

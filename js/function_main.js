@@ -1,6 +1,7 @@
 // other used default values
 var docTitle = document.title;
 var currentPrivate = 0;
+var privateChats = [];
 var actSpeed = '';
 var curActive = 0;
 var firstPanel = 'userlist';
@@ -186,10 +187,16 @@ clearChat = data => {
 		}
 	}
 }
-
 chatReload = function(){
 	var cPosted = Date.now();
 	logsControl();
+	let visitedRooms = JSON.parse(localStorage.getItem("visitedRooms", "[]"));
+	if (!visitedRooms)
+		visitedRooms = [];
+	visitedRooms.push(user_room);
+	visitedRooms = Array.from(new Set(visitedRooms));
+	localStorage.setItem("visitedRooms", JSON.stringify(visitedRooms));
+
 	$.ajax({
 		url: "system/action/chat_log.php",
 		type: "post",
@@ -574,16 +581,25 @@ scrollPriv = function(z){
 	}
 }
 userReload = function(type){
-	if($('#container_user:visible').length || type == 1 || firstPanel == 'userlist'){
-		if(type == 1){
-			prepareRight(0);
+	if (!$("#blocked_users_option").hasClass("bselected") || type == 1) {
+		if($('#container_user:visible').length || type == 1 || firstPanel == 'userlist'){
+			if(type == 1){
+				prepareRight(0);
+			}
+			$.post('system/panel/user_list.php', { 
+				}, function(response) {
+				chatRightIt(response);
+				firstPanel = '';
+			});
 		}
-		$.post('system/panel/user_list.php', { 
-			}, function(response) {
-			chatRightIt(response);
-			firstPanel = '';
-		});
 	}
+}
+blockedUsers = function() {
+	$.post('system/panel/blocked_list.php', { 
+		}, function(response) {
+		chatRightIt(response);
+		firstPanel = '';
+	});
 }
 updateStatus = function(st){;
 	$.ajax({
@@ -873,6 +889,10 @@ resetLeftPanel = function(){
 openPrivate = function(who, whoName, whoAvatar){
 	privSpinner(1);
 	if(who != user_id){
+		// var clonedElement = $("#private_center").clone();
+		// clonedElement.id = "private_center"+who;
+		// clonedElement.removeClass('privhide');
+		// clonedElement.appendTo("#global_chat");
 		currentPrivate = who;
 		$('#private_av, #dpriv_av').attr('src', whoAvatar);
 		$('#private_av').attr('data', who);

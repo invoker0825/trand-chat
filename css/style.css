@@ -16,7 +16,7 @@
 }
 
 .d-none {
-    display: none;
+    display: none !important;
 }
 
 .d-flex {
@@ -25,4 +25,38 @@
 
 .justify-content-between {
     justify-content: space-between;
+}
+
+.header-rooms {
+    display: flex;
+    gap: 10px;
+    margin-left: 30px;
+}
+
+.header-room {
+    border: 1px solid #eee;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.header-room.active {
+    background: #eee;
+    color: black;
+}
+
+.notification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 100px;
+    background: red;
+    color: white;
 }

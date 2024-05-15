@@ -23,6 +23,20 @@ else{
 	if(isset($_COOKIE[BOOM_PREFIX . 'userid'], $_COOKIE[BOOM_PREFIX . 'utk'])){
 		$ident = escape($_COOKIE[BOOM_PREFIX . 'userid'], true);
 		$pass = escape($_COOKIE[BOOM_PREFIX . 'utk']);
+		
+		$data = getUserSession($ident, $pass);
+		$target = $_GET["room"]??-1;
+		if ($target != -1 && $data["user_roomid"] != $target) {
+			$room = myRoomDetails($target);
+			if(boomAllow($room['access'])){
+				$mysqli->query("UPDATE boom_users SET user_roomid = '$target', user_move = '" . time() . "', last_action = '" . time() . "', user_role = '{$room['room_ranking']}', room_mute = '{$room['room_muted']}' WHERE user_id = '{$ident}'");
+				$mysqli->query("UPDATE boom_rooms SET room_action = '" . time() . "' WHERE room_id = '$target'");
+				// joinRoomMessage($target);
+				redisUpdateUser($ident);
+				redisUpdateRoom($target);
+			}
+		}
+		
 		$data = getUserSession($ident, $pass);
 		if(empty($data)){
 			clearUserSession();

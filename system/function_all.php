@@ -1630,6 +1630,12 @@ function unblockRoom($id){
 	boomConsole('room_unblock', array('target'=> $user['user_id']));
 	return 1;
 }
+function creatorUnblockRoom($room, $user_id){
+	global $mysqli, $data;
+	$mysqli->query("UPDATE boom_room_action SET action_blocked = '0' WHERE action_room = '{$room}' AND action_user = '$user_id'");
+	boomConsole('room_unblock', array('target'=> $user_id));
+	return 1;
+}
 function canSendReport(){
 	global $mysqli, $data;
 	$max_report = 3;
@@ -3078,6 +3084,22 @@ function createPag($content, $max, $custom = array()){
 	else {
 		return $r['empty'];
 	}
+}
+function getRooms(){
+	global $mysqli;
+	$check_action = getDelay();
+	$rooms = $mysqli->query(" 
+		SELECT *, 
+		(SELECT Count(boom_users.user_id) FROM boom_users  Where boom_users.user_roomid = boom_rooms.room_id AND last_action > '$check_action' AND user_status != 99) as room_count
+		FROM  boom_rooms 
+		ORDER BY pinned DESC, room_count DESC, room_action DESC
+	");
+	$sroom = 0;
+	$room_list = [];
+	while ($room = $rooms->fetch_assoc()){
+		$room_list[] = $room;
+	}
+	return $room_list;
 }
 function getRoomList($type = 1){
 	global $mysqli;

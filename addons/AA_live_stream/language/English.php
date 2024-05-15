@@ -15,4 +15,5 @@ $lang['live_user_list'] = 'ارسال رسالة بالعام عند بدء ال
 $lang ['show_live'] = 'مشاهدة';
 $lang ['end_live'] = 'انهاء';
 $lang ['limit_Show'] = 'من يمكنه دخول المايك بدون طلب اذن';
+$lang ['unblock'] = 'Unblock';
 ?>

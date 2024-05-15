@@ -339,7 +339,10 @@ setUserRoom();
 			</div>
 			<div class="bcell_mid">
 			</div>
-			<div id="users_option"title="<?php echo $lang['user_list']; ?>" class="bselected panel_option" onclick="userReload(1);">
+			<div id="blocked_users_option" title="<?php echo $lang['user_list']; ?>" class="panel_option" onclick="blockedUsers();">
+				<i class="fa fa-times"></i>
+			</div>
+			<div id="users_option" title="<?php echo $lang['user_list']; ?>" class="bselected panel_option" onclick="userReload(1);">
 				<i class="fa fa-users"></i>
 			</div>
 			<?php if(boomAllow(1)){ ?>
@@ -753,6 +756,7 @@ setUserRoom();
 	var roomTitle = '<?php echo $room['room_name']; ?>';
 	var user_room = <?php echo $data['user_roomid']; ?>;
 	var userAction = '<?php echo $data['user_action']; ?>';
+	var allRooms = JSON.parse('<?php echo json_encode(getRooms()); ?>');
 	var	globNotify = 0;
 	var pCount = "<?php echo $data['pcount']; ?>";
 	var ignoreList = new Set(<?php echo json_encode(loadIgnore($data['user_id'])); ?>);
