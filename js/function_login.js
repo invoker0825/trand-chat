@@ -120,7 +120,7 @@ sendLogin = function(){
 	else {
 		if(waitReply == 0){
 			waitReply = 1;
-			$.post("/boom_birdge.php", {
+			$.post("/boom_bridge.php", {
 				password: upass,
 				username: uuser,
 				token: 0,
